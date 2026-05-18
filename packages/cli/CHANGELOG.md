@@ -1,5 +1,33 @@
 # vercel
 
+## 54.2.0
+
+### Minor Changes
+
+- 39850ef: Add `vercel connect update <id>` subcommand to change connector branding. Accepts `--icon` (PNG or JPEG path, uploaded to Vercel and sent as SHA-1), `--background-color`, and `--accent-color` (both `#RRGGBB`). Gated behind the existing `FF_CONNEX_ENABLED` flag.
+- b1aa926: [vc dev] handle process errors in dev server
+
+### Patch Changes
+
+- a3a1a5a: Added CLI eval support for comparable agent/model experiment runs and restored transcript artifact uploads via chunked result ingestion.
+- 4118600: Fix standalone CLI binary latest-version worker startup.
+- a3a1a5a: Add offline-friendly local modes for CLI eval discovery and dashboard fixture generation, and expand Vercel CLI eval coverage for project, list, inspect, logs, and pull commands.
+- a3a1a5a: Relaxed the CLI env/add eval grader to accept equivalent JSON format syntax and shell-variable env names when outputs prove the variable was added.
+- a3a1a5a: Simplified the implicit curl eval grader to only require that the agent ran `vercel curl` or `vc curl`.
+- 8fb4dc8: Add `vercel flags split` to configure weighted Vercel Flags splits from the CLI.
+
+  Configure a split interactively by letting the CLI prompt for the environment, bucketing attribute, weights, fallback variant, and revision message.
+  `vercel flags split welcome-message`
+
+  Configure a boolean flag split in production with 95/5 traffic.
+  `vercel flags split redesigned-checkout --environment production --by user.userId --weight off=95 --weight on=5`
+
+  Configure a string flag split with an explicit fallback variant.
+  `vercel flags split welcome-message -e production --by user.userId --default-variant control --weight control=90 --weight treatment=10`
+
+  Exclude a variant from receiving traffic by setting its weight to 0.
+  `vercel flags split checkout-copy -e preview --by user.userId --default-variant control --weight control=50 --weight treatment=50 --weight legacy=0`
+
 ## 54.1.0
 
 ### Minor Changes
